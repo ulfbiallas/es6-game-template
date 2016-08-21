@@ -1,4 +1,5 @@
 import Player from "./Player"
+import Cannon from "./Cannon"
 import Weapon from "./Weapon"
 import Bullet from "./Bullet"
 
@@ -11,6 +12,10 @@ export default class Game {
         this.imageLoader = imageLoader
 
         this.bullets = []
+        this.cannons = []
+        this.cannons.push(new Cannon(imageLoader, 350, 100))
+        this.cannons.push(new Cannon(imageLoader, 150, 250))
+
         this.player = new Player(imageLoader, 100, 100)
         this.weapon = new Weapon(10, 300, 5)
     }
@@ -20,6 +25,9 @@ export default class Game {
         this.player.draw(this.context)
         for(let bullet of this.bullets) {
             bullet.draw(this.context)
+        }
+        for(let cannon of this.cannons) {
+            cannon.draw(this.context)
         }
     }
 
@@ -36,6 +44,9 @@ export default class Game {
             bullet.update()
         }
         this.bullets = this.bullets.filter((bullet) => !bullet.isRangeExceeded())
+        for(let cannon of this.cannons) {
+            cannon.update(this.player)
+        }
     }
 
 }

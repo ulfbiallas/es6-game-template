@@ -8,7 +8,8 @@ canvas.width = 400
 canvas.height = 300
 
 let imageLoader = new ImageLoader({
-    "player": "gfx/player.png"
+    "player": "gfx/player.png",
+    "gun": "gfx/gun.png"
 })
 
 imageLoader.load().then(() => {

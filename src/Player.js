@@ -14,8 +14,6 @@ export default class Player {
     }
 
     draw(context) {
-        let direction = new Vec2(Math.cos(this._angle * rad), Math.sin(this._angle * rad))
-
         context.translate(this._position.x, this._position.y)
         context.rotate(this._angle * rad)
         context.drawImage(this.img, -11, -9)
