@@ -6,9 +6,13 @@ export default class Keystate {
         this._right = false
         this._up = false
         this._down = false
+        this._ctrl = false
 
         $(document).keydown(evt => {
             switch(evt.keyCode) {
+                case 17:
+                    this._ctrl = true
+                    break
                 case 37:
                     this._left = true
                     break
@@ -28,6 +32,9 @@ export default class Keystate {
 
         $(document).keyup(evt => {
             switch(evt.keyCode) {
+                case 17:
+                    this._ctrl = false
+                    break
                 case 37:
                     this._left = false
                     break
@@ -44,6 +51,10 @@ export default class Keystate {
                     break
             } 
         })
+    }
+
+    get ctrl() {
+        return this._ctrl
     }
 
     get left() {
