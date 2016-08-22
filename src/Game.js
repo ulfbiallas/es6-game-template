@@ -1,7 +1,6 @@
 import Player from "./Player"
 import Cannon from "./Cannon"
 import Weapon from "./Weapon"
-import Bullet from "./Bullet"
 
 export default class Game {
 
@@ -13,11 +12,10 @@ export default class Game {
 
         this.bullets = []
         this.cannons = []
-        this.cannons.push(new Cannon(imageLoader, 350, 100))
-        this.cannons.push(new Cannon(imageLoader, 150, 250))
+        this.cannons.push(new Cannon(imageLoader, 350, 100, new Weapon(6, 200, 20)))
+        this.cannons.push(new Cannon(imageLoader, 150, 250, new Weapon(6, 200, 20)))
 
-        this.player = new Player(imageLoader, 100, 100)
-        this.weapon = new Weapon(10, 300, 5)
+        this.player = new Player(imageLoader, 100, 100, new Weapon(10, 300, 5))
     }
 
     draw() {
@@ -32,21 +30,16 @@ export default class Game {
     }
 
     update() {
-        if(this.keystate.ctrl && this.weapon.shoot()) {
-            let pos = this.player.position
-            let angle = this.player.angle
-            let weapon = this.weapon
-            this.bullets.push(new Bullet(pos.x, pos.y, angle, weapon.speed, weapon.range))
+        this.player.update(this.keystate, this.bullets)
+
+        for(let cannon of this.cannons) {
+            cannon.update(this.player, this.bullets)
         }
-        this.player.update(this.keystate)
-        this.weapon.update()
+
         for(let bullet of this.bullets) {
             bullet.update()
         }
         this.bullets = this.bullets.filter((bullet) => !bullet.isRangeExceeded())
-        for(let cannon of this.cannons) {
-            cannon.update(this.player)
-        }
     }
 
 }

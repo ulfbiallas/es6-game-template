@@ -1,12 +1,14 @@
 import Vec2 from "./Vec2"
+import Bullet from "./Bullet"
 
 const rad = Math.PI / 180
 
 export default class Cannon {
 
-    constructor(imageLoader, x, y) {
+    constructor(imageLoader, x, y, weapon) {
         this.imageLoader = imageLoader
         this._position = new Vec2(x, y)
+        this._weapon = weapon
         this._angle = 0
         this.img = imageLoader.getImage('gun')
     }
@@ -19,9 +21,10 @@ export default class Cannon {
         context.translate(-this._position.x, -this._position.y)
     }
 
-    update(player) {
+    update(player, bullets) {
         this._angle = (this._angle + 360) % 360
-        let direction = player.position.sub(this._position).normalize()
+        let playerCannon = player.position.sub(this._position)
+        let direction = playerCannon.normalize()
         let angleA = (Math.atan2(direction.y, direction.x) / rad + 360) % 360
         let angleB = this._angle >= angleA ? angleA + 360 : angleA - 360
 
@@ -36,7 +39,12 @@ export default class Cannon {
             } else {
                 this._angle--
             }
+        } else {
+            if(this._weapon.shoot() && playerCannon.length() < this._weapon.range) {
+                bullets.push(new Bullet(this._position.x, this._position.y, this._angle, this._weapon.speed, this._weapon.range))
+            }
         }
+        this._weapon.update()
     }
 
     get position() {
