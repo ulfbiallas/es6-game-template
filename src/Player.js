@@ -15,12 +15,13 @@ export default class Player {
         this.img = imageLoader.getImage('player')
     }
 
-    draw(context) {
-        context.translate(this._position.x, this._position.y)
+    draw(context, screenPosition) {
+        let drawPosition = this._position.sub(screenPosition)
+        context.translate(drawPosition.x, drawPosition.y)
         context.rotate(this._angle * rad)
         context.drawImage(this.img, -11, -9)
         context.rotate(-this._angle * rad)
-        context.translate(-this._position.x, -this._position.y)
+        context.translate(-drawPosition.x, -drawPosition.y)
     }
 
     update(keystate, bullets) {

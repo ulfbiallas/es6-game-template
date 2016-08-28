@@ -1,6 +1,7 @@
 import Player from "./Player"
 import Cannon from "./Cannon"
 import Weapon from "./Weapon"
+import Map from "./Map"
 
 export default class Game {
 
@@ -10,36 +11,20 @@ export default class Game {
         this.keystate = keystate
         this.imageLoader = imageLoader
 
-        this.bullets = []
-        this.cannons = []
-        this.cannons.push(new Cannon(imageLoader, 350, 100, new Weapon(6, 200, 20)))
-        this.cannons.push(new Cannon(imageLoader, 150, 250, new Weapon(6, 200, 20)))
+        let player = new Player(imageLoader, 100, 100, new Weapon(10, 300, 5))
+        this.map = new Map(1000, 1000, this.canvas.width, this.canvas.height, player)
 
-        this.player = new Player(imageLoader, 100, 100, new Weapon(10, 300, 5))
+        this.map.addEnemy(new Cannon(imageLoader, 350, 100, new Weapon(6, 200, 20)))
+        this.map.addEnemy(new Cannon(imageLoader, 150, 250, new Weapon(6, 200, 20)))
     }
 
     draw() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        this.player.draw(this.context)
-        for(let bullet of this.bullets) {
-            bullet.draw(this.context)
-        }
-        for(let cannon of this.cannons) {
-            cannon.draw(this.context)
-        }
+        this.map.draw(this.context)
     }
 
     update() {
-        this.player.update(this.keystate, this.bullets)
-
-        for(let cannon of this.cannons) {
-            cannon.update(this.player, this.bullets)
-        }
-
-        for(let bullet of this.bullets) {
-            bullet.update()
-        }
-        this.bullets = this.bullets.filter((bullet) => !bullet.isRangeExceeded())
+        this.map.update(this.keystate)
     }
 
 }

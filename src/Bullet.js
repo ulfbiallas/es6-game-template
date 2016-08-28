@@ -12,10 +12,11 @@ export default class Bullet {
         this.range = range
     }
 
-    draw(context) {
+    draw(context, screenPosition) {
         if(! this.isRangeExceeded()) {
+            let drawPosition = this.position.sub(screenPosition)
             context.beginPath();
-            context.arc(this.position.x, this.position.y, 2, 0, 2*Math.PI);
+            context.arc(drawPosition.x, drawPosition.y, 2, 0, 2*Math.PI);
             context.stroke();
         }
     }
