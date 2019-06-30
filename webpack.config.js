@@ -3,16 +3,17 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
-  output: { path: __dirname, filename: 'bundle.js' },
+  output: {
+    path: __dirname,
+    filename: 'bundle.js'
+  },
+  mode: 'development',
   module: {
-    loaders: [
+    rules: [
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015']
-        }
+        exclude: /node_modules/
       }
     ]
   },
