@@ -1,14 +1,13 @@
 export default class Keystate {
 
-    constructor($) {
-
+    constructor() {
         this._left = false
         this._right = false
         this._up = false
         this._down = false
         this._ctrl = false
 
-        $(document).keydown(evt => {
+        document.onkeydown = evt => {
             switch(evt.keyCode) {
                 case 17:
                     this._ctrl = true
@@ -27,10 +26,10 @@ export default class Keystate {
                     break
                 default:
                     break
-            } 
-        })
+            }
+        }
 
-        $(document).keyup(evt => {
+        document.onkeyup = evt => {
             switch(evt.keyCode) {
                 case 17:
                     this._ctrl = false
@@ -49,8 +48,8 @@ export default class Keystate {
                     break
                 default:
                     break
-            } 
-        })
+            }
+        }
     }
 
     get ctrl() {

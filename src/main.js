@@ -1,23 +1,22 @@
-import $ from 'jquery';
 import Game from "./Game"
 import Keystate from "./Keystate"
 import ImageLoader from "./ImageLoader"
 
-let canvas = $("#canvas")[0]
+const canvas = document.getElementById('canvas');
 canvas.width = 400
 canvas.height = 300
 
-let imageLoader = new ImageLoader({
-    "player": "gfx/player.png",
-    "gun": "gfx/gun.png"
+const imageLoader = new ImageLoader({
+    player: 'gfx/player.png',
+    gun: 'gfx/gun.png'
 })
 
 imageLoader.load().then(() => {
 
-    let keystate = new Keystate($)
-    let game = new Game(canvas, keystate, imageLoader)
+    const keystate = new Keystate()
+    const game = new Game(canvas, keystate, imageLoader)
 
-    let mainloop = () => {
+    const mainloop = () => {
         game.update()
         game.draw()
         requestAnimationFrame(mainloop)
@@ -27,4 +26,4 @@ imageLoader.load().then(() => {
 
 }).catch((error) => {
     console.log(`${error.name}: ${error.message}`)
-});
+})

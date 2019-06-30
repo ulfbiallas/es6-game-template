@@ -1,5 +1,3 @@
-var Promise = require("bluebird")
-
 export default class ImageLoader {
 
     constructor(imagesToLoad) {
