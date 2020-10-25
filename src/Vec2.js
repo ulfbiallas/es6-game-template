@@ -37,6 +37,10 @@ export default class Vec2 {
         return this._x * v.x + this._y * v.y
     }
 
+    perp() {
+        return new Vec2(this._y, -this._x)
+    }
+
     length2() {
         return this._x * this._x + this._y * this._y
     }
