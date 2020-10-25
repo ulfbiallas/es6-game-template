@@ -9,8 +9,8 @@ export default class AI {
             [ 0,  0,  0], //  2 invalid
             [ 0,  0,  0], //  3 invalid
             [-1, -1,  2], //  4 isItemInfront
-            [ 1, -1,  1], //  5 isItemInfront, isItemLeft
-            [-1,  1,  1], //  6 isItemInfront, isItemRight
+            [ 1, -1,  0], //  5 isItemInfront, isItemLeft
+            [-1,  1,  0], //  6 isItemInfront, isItemRight
             [ 0,  0,  0], //  7 invalid
             [ 1,  1, -1], //  8 isItemBehind
             [ 1, -1, -1], //  9 isItemBehind, isItemLeft
@@ -79,6 +79,7 @@ export default class AI {
 
         this.lastDecision = [stateId, actionId]
 
+        //console.log(stateId);
         //console.log(JSON.stringify(this.qMatrix))
     }
 
