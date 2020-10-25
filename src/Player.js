@@ -14,6 +14,8 @@ export default class Player {
         this._angle = 0
 
         this.img = imageLoader.getImage('player')
+
+        this.ai = new AI();
     }
 
     draw(context) {
@@ -44,9 +46,9 @@ export default class Player {
 
         const playerDirectionPerp = playerDirection.perp();
         const dotProdLeftRight = playerDirectionPerp.dot(direction);
-        if(dotProdLeftRight > 0) {
+        if(dotProdLeftRight > 0.2) {
             isItemLeft = true
-        } else {
+        } else if(dotProdLeftRight < -0.2) {
             isItemRight = true;
         }
 
@@ -63,7 +65,7 @@ export default class Player {
             moveForward: () => this.moveForward()
         }
 
-        AI.update(state, actions);
+        this.ai.updateAgent(state, actions);
     }
 
     turnLeft() {
